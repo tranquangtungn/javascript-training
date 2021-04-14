@@ -1,3 +1,4 @@
+// 1.1 format money string
 function formatMoney1(money) {
     var result = "";
     // tách phần thập phân và nguyên
@@ -30,7 +31,7 @@ function checkOutput(output) {
         return output;
 }
 
-//1.2
+//1.2 format money shorten
 function formatMoney2(money, number) {
     var measure = "";
     var numMoney = Number(money)
@@ -66,8 +67,8 @@ function customFloor(num)
     return result[0] + "." + result[1];
 }
 
-//1.4
+//1.4 get Extension of file
 function getExtension(file) {
     var result = (file + "").split(".");
-    console.log("." + result[1]);
+    console.log( result[1]);
 }

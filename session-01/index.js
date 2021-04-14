@@ -1,3 +1,5 @@
+
+// 1.3 get words count
 var input = "oneTrueTree"
 var count = 1;
 function check(char) {
