@@ -50,10 +50,10 @@ export class Card extends Node {
     }
 
     _initCovers() {
-        let cover = new Cover(this._index);
+        let cover = new Cover(this._index, this);
         cover.width = 100;
         cover.height = 100;
-        cover.card = this;
+
         this.cover = cover;
         this.addChild(cover);
     }

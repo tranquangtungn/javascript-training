@@ -8,8 +8,7 @@ export class Game extends Node {
         this._initBg();
         this._initCards();
         this.countClick = 0;
-        this.firstCard = null;
-        this.secondCard = null;
+
     }
 
     _initSize() {
@@ -52,49 +51,36 @@ export class Game extends Node {
     onClickCard(evt) {
         this.countClick++;
 
-        if (this.countClick === -1) {
-            //card.index = evt.node
+        if (this.countClick === 1) {
             this.firstCard = evt.target.node;
             this.firstCard.cover.active = false;
-            this.firstCard.textIndex.active = false;
-            //this.firstCard.
+        } else if (this.countClick === 2) {
 
-        } else if (this.countClick === -1) {
             // compare
             console.log(this.firstCard.cover);
             console.log(evt.target.node.cover);
             this.secondCard = evt.target.node;
             this.secondCard.cover.active = false;
-            this.secondCard.textIndex.active = false;
-
-            if (this.firstCard !== this.secondCard)
-
+            if (this.firstCard !== this.secondCard) {
+                let card1 = this.firstCard;
+                let card2 = this.secondCard;
                 if (this.firstCard.value === this.secondCard.value) {
-                    console.log(true);
-                    this.firstCard.active = false;
-                    this.secondCard.active = false;
-
-                }
-                else {
-                    let card1 = this.firstCard;
-                    let card2 = this.secondCard;
                     setTimeout(function () {
-                        console.log();
-                        // console.log(this.firstCard.cover);
-                        card1.cover.active = true;
-                        card2.cover.active = true;
-                        card1.textIndex.active = true;
-                        card2.textIndex.active = true;
-
+                        card1.active = false;
+                        card2.active = false;
                     }, 800);
                 }
-
-
+                else {
+                    setTimeout(function () {
+                        card1.cover.active = true;
+                        card2.cover.active = true;
+                    }, 800);
+                }
+            }
             this.countClick = 0;
-
         }
-        let sele_card = evt.target.node;
-        console.log(sele_card);
+        let sele_card = evt.target;
+        console.log(sele_card.node);
     }
 
 }
