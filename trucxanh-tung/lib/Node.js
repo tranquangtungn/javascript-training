@@ -20,7 +20,7 @@ export class Node {
     }
     set x(value) {
         this._x = value;
-        this.elm.style.left = this._x + "px";
+        this.elm.style.left = this._x;
     }
 
     get y() {
@@ -28,7 +28,7 @@ export class Node {
     }
     set y(value) {
         this._y = value;
-        this.elm.style.top = this._y + "px";
+        this.elm.style.top = this._y;
     }
     get width() {
         return this._width;

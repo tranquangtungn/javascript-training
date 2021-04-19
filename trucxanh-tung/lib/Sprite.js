@@ -2,7 +2,9 @@ import { Node } from "./Node.js";
 export class Sprite extends Node {
 
     constructor(path) {
+
         super();
+
         this._path = "";
         if (path) this.path = path;
     }
@@ -18,5 +20,6 @@ export class Sprite extends Node {
     _initElement() {
         this.elm = document.createElement("img");
         this.elm.style.position = "absolute";
+        //this.elm.node = this;
     }
 }

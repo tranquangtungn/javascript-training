@@ -25,11 +25,24 @@ export class Game extends Node {
 
     _initCards() {
         //for asdasdas
-
+        let listCards = [];
+        for (let index = 0; index < 10; index++) {
+            // let path = "./img/trucxanh" + i + ".jpg";
+            listCards.push(index);
+            listCards.push(index);
+        }
+        console.log(listCards);
+        for (let i = 0; i < 100; i++) {
+            var index = Math.floor(Math.random() * listCards.length);     // returns a random integer from 0 to 9
+            var temp = listCards[0];
+            listCards[0] = listCards[index];
+            listCards[index] = temp;
+        }
         for (let i = 0; i < 20; i++) {
-            let card = new Card(i, i % 10);
-            card.y = 40 + 101 * Math.floor(i / 5);
-            card.x = 260 + 101 * (i % 5);
+            let card = new Card(i + 1, listCards[i] + ""); // listCard[i] + "", convert 
+            card.y = 40 + 101 * Math.floor(i / 5) + "px";
+            card.x = 260 + 101 * (i % 5) + "px";
+            //card.active = false;
             this.addChild(card);
             card.on("mousedown", this.onClickCard.bind(this));
         }
@@ -38,13 +51,50 @@ export class Game extends Node {
 
     onClickCard(evt) {
         this.countClick++;
-        if (this.countClick === 1) {
 
-        } else if (this.countClick === 2) {
+        if (this.countClick === -1) {
+            //card.index = evt.node
+            this.firstCard = evt.target.node;
+            this.firstCard.cover.active = false;
+            this.firstCard.textIndex.active = false;
+            //this.firstCard.
+
+        } else if (this.countClick === -1) {
             // compare
+            console.log(this.firstCard.cover);
+            console.log(evt.target.node.cover);
+            this.secondCard = evt.target.node;
+            this.secondCard.cover.active = false;
+            this.secondCard.textIndex.active = false;
+
+            if (this.firstCard !== this.secondCard)
+
+                if (this.firstCard.value === this.secondCard.value) {
+                    console.log(true);
+                    this.firstCard.active = false;
+                    this.secondCard.active = false;
+
+                }
+                else {
+                    let card1 = this.firstCard;
+                    let card2 = this.secondCard;
+                    setTimeout(function () {
+                        console.log();
+                        // console.log(this.firstCard.cover);
+                        card1.cover.active = true;
+                        card2.cover.active = true;
+                        card1.textIndex.active = true;
+                        card2.textIndex.active = true;
+
+                    }, 800);
+                }
+
+
+            this.countClick = 0;
+
         }
-        let card = evt.target.node;
-        console.log(card.index, card.value);
+        let sele_card = evt.target.node;
+        console.log(sele_card);
     }
 
 }
