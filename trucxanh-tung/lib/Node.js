@@ -7,6 +7,32 @@ export class Node {
         this._height = 0;
         this._active = true;
         this.children = [];
+        this._scaleX = 1;
+        this._scaleY = 1;
+        this._zIndex = 0;
+        this._pointerEvents = true;
+    }
+    get pointerEvents() {
+        return this._pointerEvents;
+    }
+    set pointerEvents(value) {
+        this._pointerEvents = value;
+        this.elm.style.pointerEvents = this._pointerEvents ? "auto" : "none";
+    }
+    get zIndex() {
+        return this._zIndex;
+    }
+    set zIndex(value) {
+        this._zIndex = value;
+        this.elm.style.zIndex = this._zIndex;
+    }
+    get scaleX() {
+        return this._scaleX;
+    }
+
+    set scaleX(value) {
+        this._scaleX = value;
+        this.elm.style.transform = `scaleX(${this._scaleX})`
     }
 
     _initElement() {
@@ -20,7 +46,7 @@ export class Node {
     }
     set x(value) {
         this._x = value;
-        this.elm.style.left = this._x;
+        this.elm.style.left = this._x + "px";
     }
 
     get y() {
@@ -28,7 +54,7 @@ export class Node {
     }
     set y(value) {
         this._y = value;
-        this.elm.style.top = this._y;
+        this.elm.style.top = this._y + "px";
     }
     get width() {
         return this._width;
