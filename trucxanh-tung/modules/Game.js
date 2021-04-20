@@ -1,14 +1,18 @@
+import { Label } from "../lib/Label.js";
 import { Node } from "../lib/Node.js";
 import { Sprite } from "../lib/Sprite.js";
 import { Card } from "./Card.js";
 export class Game extends Node {
 
     init() {
+        this.countClick = 0;
+        this.firstCard = null;
+        this.secondCard = null;
+        this.score = 1000;
         this._initSize();
         this._initBg();
         this._initCards();
-        this.countClick = 0;
-
+        this._initScore();
     }
 
     _initSize() {
@@ -21,7 +25,13 @@ export class Game extends Node {
         let bg = new Sprite("./img/trucxanh_bg.jpg");
         this.addChild(bg);
     }
-
+    _initScore() {
+        let style = { fontSize: "40px", color: "red", fontFamily: "Arial" };
+        let sc = new Label("score: " + this.score, style);
+        sc.x = "30px";
+        sc.y = "100px";
+        this.addChild(sc);
+    }
     _initCards() {
         //for asdasdas
         let listCards = [];
@@ -50,15 +60,17 @@ export class Game extends Node {
 
     onClickCard(evt) {
         this.countClick++;
-
+        console.log(!!this.secondCard);
         if (this.countClick === 1) {
+
             this.firstCard = evt.target.node;
             this.firstCard.cover.active = false;
+
+
         } else if (this.countClick === 2) {
 
             // compare
-            console.log(this.firstCard.cover);
-            console.log(evt.target.node.cover);
+
             this.secondCard = evt.target.node;
             this.secondCard.cover.active = false;
             if (this.firstCard !== this.secondCard) {
@@ -68,16 +80,22 @@ export class Game extends Node {
                     setTimeout(function () {
                         card1.active = false;
                         card2.active = false;
+
                     }, 800);
                 }
                 else {
                     setTimeout(function () {
                         card1.cover.active = true;
                         card2.cover.active = true;
+
                     }, 800);
                 }
+                this.countClick = 0;
+
             }
-            this.countClick = 0;
+            else {
+                this.countClick = 1;
+            }
         }
         let sele_card = evt.target;
         console.log(sele_card.node);
