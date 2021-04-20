@@ -2,25 +2,17 @@ import { Node } from "../lib/Node.js";
 import { Label } from "../lib/Label.js"
 import { Sprite } from "../lib/Sprite.js";
 
-
 export class Card extends Node {
     constructor(index, value) {
         super();
         this._index = index || "";
-        this._value = "";
-        if (index) this.index = index;
-        if (value) this.value = value;
+        this._value = value || "";
         this._initSize()
         this._initSprite();
         this._initTextIndex();
     }
-
     get value() {
         return this._value;
-    }
-    set value(value) {
-        this._value = value;
-        // this.elm.value = this._value;
     }
     _initSize() {
         this.width = 100;
