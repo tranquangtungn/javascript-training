@@ -11,6 +11,9 @@ export class Card extends Node {
         this._initSprite();
         this._initTextIndex();
     }
+    get index() {
+        return this._index;
+    }
     get value() {
         return this._value;
     }

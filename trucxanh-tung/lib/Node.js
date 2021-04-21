@@ -5,7 +5,6 @@ export class Node {
         this._y = 0;
         this._width = 0;
         this._height = 0;
-        this._active = true;
         this.children = [];
         this._scaleX = 1;
         this._scaleY = 1;
@@ -71,9 +70,6 @@ export class Node {
         this.elm.style.height = this._height + "px";
     }
 
-    get active() {
-        return this._active;
-    }
 
     set active(value) {
         this._active = value;

@@ -42,8 +42,6 @@ export class Animation {
             delay: 1.5, duration: 1,
             width: 150, height: 150
         })
-        setTimeout(function () {
-            card.active = false;
-        }, 2000);
+
     }
 }

@@ -18,5 +18,6 @@ export class Label extends Node {
         this.elm.style.fontFamily = this._textStyle.fontFamily;
         this.elm.style.color = this._textStyle.color;
         this.elm.style.tranform = this._textStyle.tranform;
+        this.elm.style.fontWeight = this._textStyle.fontWeight;
     }
 }
