@@ -11,6 +11,7 @@ export class Card extends Node {
         this._initSprite();
         this._initTextIndex();
     }
+
     get index() {
         return this._index;
     }
@@ -18,16 +19,17 @@ export class Card extends Node {
         return this._value;
     }
     _initSize() {
+        this.opacity = 0;
         this.width = 100;
         this.height = 100;
         this.elm.style.border = "2px solid black";
     }
     _initTextIndex() {
-        let style = { fontSize: "15px", color: "white", fontFamily: "Arial" };
+        let style = { fontSize: "20px", color: "white", fontFamily: "Arial", fontWeight: "bold" };
         let text = new Label(this._index, style);
         text.elm.node = this;
         this.textIndex = text;
-        text.x = 45;
+        text.x = 40;
         text.y = 40;
         this.addChild(text);
     }

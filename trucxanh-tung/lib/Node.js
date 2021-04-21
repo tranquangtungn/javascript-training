@@ -7,9 +7,16 @@ export class Node {
         this._height = 0;
         this.children = [];
         this._scaleX = 1;
-        this._scaleY = 1;
         this._zIndex = 0;
+        this._opacity = 1;
         this._pointerEvents = true;
+    }
+    get opacity() {
+        return this._opacity;
+    }
+    set opacity(value) {
+        this._opacity = value;
+        this.elm.style.opacity = this._opacity;
     }
     get pointerEvents() {
         return this._pointerEvents;

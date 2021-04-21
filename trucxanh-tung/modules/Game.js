@@ -45,21 +45,31 @@ export class Game extends Node {
             listCards.push(index);
             listCards.push(index);
         }
-        //random
-        // for (let i = 0; i < 100; i++) {
-        //     var index = Math.floor(Math.random() * listCards.length);
-        //     var temp = listCards[0];
-        //     listCards[0] = listCards[index];
-        //     listCards[index] = temp;
-        // }
+        //shuffle
+        for (let i = 0; i < 100; i++) {
+            var index = Math.floor(Math.random() * listCards.length);
+            var temp = listCards[0];
+            listCards[0] = listCards[index];
+            listCards[index] = temp;
+        }
         //render
         for (let i = 0; i < 20; i++) {
-            let card = new Card(i + 1, listCards[i] + "");
-            card.y = 40 + 101 * Math.floor(i / 5);
-            card.x = 130 + 101 * (i % 5);
+            let card = new Card(20 - i, listCards[i] + "");
+            // card.y = 40 + 101 * Math.floor(i / 5);
+            // card.x = 130 + 101 * (i % 5);
+            card.y = 200
+            card.x = 350
+
+            Animation.createCard(card, 0.3);
+            Animation.moveCard(card);
+
             this.addChild(card);
             card.on("mousedown", this.onClickCard.bind(this));
         }
+        console.log(this.children)
+        //Animation.animationBoardCard1(this.children);
+
+
     }
     _initResultGame(text) {
         let style = { fontSize: "40px", color: "red", fontFamily: "Arial", fontWeight: "bold" };
