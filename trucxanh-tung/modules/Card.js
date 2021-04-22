@@ -21,8 +21,8 @@ export class Card extends Node {
     _initSize() {
         this.opacity = 0;
         this.pointerEvents = false;
-        this.width = 90;
-        this.height = 90;
+        this.width = 100;
+        this.height = 100;
         this.elm.style.border = "2px solid black";
     }
     _initTextIndex() {

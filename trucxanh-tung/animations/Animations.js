@@ -1,14 +1,14 @@
 export class Animation {
-    static flip(card) {
+    static flip(card, dt) {
         card.pointerEvents = false;
         let timeline = gsap.timeline();
-        timeline.to(card, { duration: 0.5, scaleX: 0 })
-        timeline.to(card, { duration: 0.5, scaleX: 1 })
+        timeline.to(card, { duration: dt * 0.5, scaleX: 0 })
+        timeline.to(card, { duration: dt * 0.5, scaleX: 1 })
         setTimeout(function () {
             card.children[0].path = "./img/trucxanh" + card.value + ".jpg";
             card.children[1].active = false;
             card.poinerEvents = true;
-        }, 500);
+        }, dt * 500);
     }
     static flipBack(card) {
         card.pointerEvents = false;
@@ -50,7 +50,7 @@ export class Animation {
         timeline.to(card, { delay: (card.index) * dt, duration: 0.0, opacity: 1 })
         return dt;
     }
-    static moveCard(card, delay, dt) {
+    static moveCard(card, delay, dt, stepWidth, stepHeight) {
         card.zIndex = 22;
         let timeline = gsap.timeline();
         let timeline2 = gsap.timeline();
@@ -60,13 +60,13 @@ export class Animation {
         }, (card.index + 22) * delay * 1000)
         timeline.to(card, {
             delay: (card.index + 21) * delay, duration: dt,
-            x: 150 + 100 * ((card.index - 1) % 5) + 50,
-            y: 40 + 100 * Math.floor((card.index - 1) / 5) - 50,
+            x: 150 + stepWidth * ((card.index - 1) % 5) + 50,
+            y: 40 + stepHeight * Math.floor((card.index - 1) / 5) - 50,
             width: card.width * 1.2, height: card.height * 1.2
         });
         timeline.to(card, {
-            x: 150 + 100 * ((card.index - 1) % 5),
-            y: 40 + 100 * Math.floor((card.index - 1) / 5),
+            x: 150 + stepWidth * ((card.index - 1) % 5),
+            y: 40 + stepHeight * Math.floor((card.index - 1) / 5),
             width: card.width, height: card.height
         })
         timeline2.to(card.children[0], {
@@ -86,7 +86,7 @@ export class Animation {
         setTimeout(() => {
             card.zIndex = 0;
             card.pointerEvents = true;
-        }, 44 * delay * 1000);
+        }, 45 * delay * 1000);
     }
 
 }

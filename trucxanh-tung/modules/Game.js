@@ -5,7 +5,8 @@ import { Sprite } from "../lib/Sprite.js";
 import { Card } from "./Card.js";
 export class Game extends Node {
     init() {
-
+        this.stepWidthCard = 100;
+        this.stepHeightCard = 100;
         this.countClick = 0;
         this.firstCard = null;
         this.secondCard = null;
@@ -59,8 +60,8 @@ export class Game extends Node {
             // card.x = 130 + 101 * (i % 5);
             card.y = this.height / 2 - card.height / 2;
             card.x = this.width / 2 - card.width / 2;
-            let delay = Animation.createCard(card, 0.2);
-            Animation.moveCard(card, delay, 0.5);
+            Animation.createCard(card, 0.2);
+            Animation.moveCard(card, 0.2, 0.5, this.stepWidthCard, this.stepHeightCard);
             this.addChild(card);
             card.on("mousedown", this.onClickCard.bind(this));
         }
@@ -97,14 +98,14 @@ export class Game extends Node {
         game.countClick++;
         if (game.countClick === 1) {
             game.firstCard = evt.target.node;
-            Animation.flip(game.firstCard);
+            Animation.flip(game.firstCard, 1);
         } else if (game.countClick === 2) {
             if (game.firstCard === evt.target.node) {
                 game.countClick = 1;
                 return;
             } else {
                 game.secondCard = evt.target.node;
-                Animation.flip(game.secondCard);
+                Animation.flip(game.secondCard, 1);
                 if (game.firstCard.value === game.secondCard.value) {
                     Animation.increaseSize(game.firstCard);
                     Animation.increaseSize(game.secondCard);
@@ -113,7 +114,6 @@ export class Game extends Node {
                         game.removeCard(game.firstCard);
                         game.removeCard(game.secondCard);
                     }, 2000)
-                    console.log(game);
                 }
                 else {
                     Animation.flipBack(game.firstCard);
