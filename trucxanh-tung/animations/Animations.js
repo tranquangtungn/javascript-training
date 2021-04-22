@@ -25,7 +25,7 @@ export class Animation {
             card.children[0].path = "./img/cover.jpg";
             card.children[1].active = true;
             card.pointerEvents = true;
-        }, 00);
+        }, 2000);
 
     }
     static increaseSize(card) {
