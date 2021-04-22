@@ -11,9 +11,20 @@ export class Game extends Node {
         this.firstCard = null;
         this.secondCard = null;
         this.styleText = { fontSize: "30px", color: "red", fontFamily: "Arial", fontWeight: "bold" };
-        this._score = 1000;
+        this._score = 10000;
         this._initSize();
         this._initBg();
+        this._initStart()
+    }
+    _initStart() {
+        let btnStart = new Label("Start", this.styleText);
+        btnStart.x = 350;
+        btnStart.y = 200;
+        this.addChild(btnStart);
+        btnStart.on("mousedown", this.onClickStart.bind(this));
+    }
+    initGame() {
+        //  this._initBg();
         this._initScore();
         this._initCards();
     }
@@ -84,10 +95,14 @@ export class Game extends Node {
     }
     removeCard(card) {
         this.elm.removeChild(card.elm);
-        for (let i = 2; i < this.children.length; i++) {
+        for (let i = 0; i < this.children.length; i++) {
             if (this.children[i] === card)
                 this.children.splice(i, 1);
         }
+    }
+    onClickStart(evt) {
+        this.removeCard(this.children[1]);
+        this.initGame();
     }
     onClickReStart(evt) {
         location.reload();
