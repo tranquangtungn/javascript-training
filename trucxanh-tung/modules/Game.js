@@ -47,12 +47,12 @@ export class Game extends Node {
             listCards.push(index);
         }
         //shuffle
-        // for (let i = 0; i < 100; i++) {
-        //     var index = Math.floor(Math.random() * listCards.length);
-        //     var temp = listCards[0];
-        //     listCards[0] = listCards[index];
-        //     listCards[index] = temp;
-        // }
+        for (let i = 0; i < 100; i++) {
+            var index = Math.floor(Math.random() * listCards.length);
+            var temp = listCards[0];
+            listCards[0] = listCards[index];
+            listCards[index] = temp;
+        }
         //render
         for (let i = 0; i < 20; i++) {
             let card = new Card(20 - i, listCards[i] + "");
