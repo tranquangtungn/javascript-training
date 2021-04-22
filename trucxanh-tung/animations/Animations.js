@@ -48,42 +48,45 @@ export class Animation {
         timeline.to(card, { delay: (20 - card.index) * dt, duration: dt, opacity: 1 })
         timeline.to(card, { duration: 0.1, opacity: 0 })
         timeline.to(card, { delay: (card.index) * dt, duration: 0.0, opacity: 1 })
+        return dt;
     }
-    static moveCard(card) {
+    static moveCard(card, delay, dt) {
         card.zIndex = 22;
         let timeline = gsap.timeline();
         let timeline2 = gsap.timeline();
         let timeline3 = gsap.timeline();
         setTimeout(function () {
             card.zIndex = card.index;
-        }, card.index * 300 + 22 * 300)
+        }, (card.index + 22) * delay * 1000)
         timeline.to(card, {
-            delay: card.index * 0.3 + 21 * 0.3, duration: 0.5,
-            x: 130 + 101 * ((card.index - 1) % 5) + 50,
-            y: 40 + 101 * Math.floor((card.index - 1) / 5) - 50,
-            height: 120, width: 120,
-
+            delay: (card.index + 21) * delay, duration: dt,
+            x: 150 + 100 * ((card.index - 1) % 5) + 50,
+            y: 40 + 100 * Math.floor((card.index - 1) / 5) - 50,
+            width: card.width * 1.2, height: card.height * 1.2
         });
         timeline.to(card, {
-            x: 130 + 101 * ((card.index - 1) % 5),
-            y: 40 + 101 * Math.floor((card.index - 1) / 5),
-            height: 100, width: 100,
+            x: 150 + 100 * ((card.index - 1) % 5),
+            y: 40 + 100 * Math.floor((card.index - 1) / 5),
+            width: card.width, height: card.height
         })
         timeline2.to(card.children[0], {
-            delay: card.index * 0.3 + 21 * 0.3, duration: 0.5,
-            width: 120, height: 120
+            delay: (card.index + 21) * delay, duration: dt,
+            width: card.width * 1.2, height: card.height * 1.2
         })
         timeline2.to(card.children[0], {
-            width: 100, height: 100
+            width: card.width, height: card.height
         })
         timeline3.to(card.children[1], {
-            delay: card.index * 0.3 + 21 * 0.3, duration: 0.5,
-            x: 50, y: 50
+            delay: (card.index + 21) * delay, duration: dt,
+            x: card.width * 1.2 / 2 - 10, y: card.height * 1.2 / 2 - 10
         })
         timeline3.to(card.children[1], {
-            x: 40, y: 40
+            x: card.height / 2 - 10, y: card.width / 2 - 10
         })
-
+        setTimeout(() => {
+            card.zIndex = 0;
+            card.pointerEvents = true;
+        }, 44 * delay * 1000);
     }
 
 }

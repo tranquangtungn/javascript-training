@@ -20,8 +20,9 @@ export class Card extends Node {
     }
     _initSize() {
         this.opacity = 0;
-        this.width = 100;
-        this.height = 100;
+        this.pointerEvents = false;
+        this.width = 90;
+        this.height = 90;
         this.elm.style.border = "2px solid black";
     }
     _initTextIndex() {
@@ -29,15 +30,15 @@ export class Card extends Node {
         let text = new Label(this._index, style);
         text.elm.node = this;
         this.textIndex = text;
-        text.x = 40;
-        text.y = 40;
+        text.x = this.height / 2 - 10;
+        text.y = this.width / 2 - 10;
         this.addChild(text);
     }
     _initSprite() {
         let img = new Sprite("./img/cover.jpg");
         img.elm.node = this;
-        img.width = 100;
-        img.height = 100;
+        img.width = this.height;
+        img.height = this.height;
         this.addChild(img)
     }
 

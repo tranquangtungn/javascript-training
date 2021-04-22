@@ -5,15 +5,16 @@ import { Sprite } from "../lib/Sprite.js";
 import { Card } from "./Card.js";
 export class Game extends Node {
     init() {
+
         this.countClick = 0;
         this.firstCard = null;
         this.secondCard = null;
-        this._score = 100;
+        this.styleText = { fontSize: "30px", color: "red", fontFamily: "Arial", fontWeight: "bold" };
+        this._score = 1000;
         this._initSize();
         this._initBg();
         this._initScore();
         this._initCards();
-
     }
     get score() {
         return this._score;
@@ -32,8 +33,7 @@ export class Game extends Node {
         this.addChild(bg);
     }
     _initScore() {
-        let style = { fontSize: "30px", color: "red", fontFamily: "Arial", fontWeight: "bold" };
-        let sc = new Label("score: " + this.score, style);
+        let sc = new Label("score: " + this.score, this.styleText);
         sc.x = 10;
         sc.y = 5;
         this.addChild(sc);
@@ -46,39 +46,31 @@ export class Game extends Node {
             listCards.push(index);
         }
         //shuffle
-        for (let i = 0; i < 100; i++) {
-            var index = Math.floor(Math.random() * listCards.length);
-            var temp = listCards[0];
-            listCards[0] = listCards[index];
-            listCards[index] = temp;
-        }
+        // for (let i = 0; i < 100; i++) {
+        //     var index = Math.floor(Math.random() * listCards.length);
+        //     var temp = listCards[0];
+        //     listCards[0] = listCards[index];
+        //     listCards[index] = temp;
+        // }
         //render
         for (let i = 0; i < 20; i++) {
             let card = new Card(20 - i, listCards[i] + "");
-            // card.y = 40 + 101 * Math.floor(i / 5);
+            //card.y = 40 + 101 * Math.floor(i / 5);
             // card.x = 130 + 101 * (i % 5);
-            card.y = 200
-            card.x = 350
-
-            Animation.createCard(card, 0.3);
-            Animation.moveCard(card);
-
+            card.y = this.height / 2 - card.height / 2;
+            card.x = this.width / 2 - card.width / 2;
+            let delay = Animation.createCard(card, 0.2);
+            Animation.moveCard(card, delay, 0.5);
             this.addChild(card);
             card.on("mousedown", this.onClickCard.bind(this));
         }
-        console.log(this.children)
-        //Animation.animationBoardCard1(this.children);
-
-
     }
     _initResultGame(text) {
-        let style = { fontSize: "40px", color: "red", fontFamily: "Arial", fontWeight: "bold" };
-        let result = new Label(text, style);
+        let result = new Label(text, this.styleText);
         result.x = 300;
         result.y = 200;
         this.addChild(result);
-
-        let btnRestart = new Label("Restart", style);
+        let btnRestart = new Label("Restart", this.styleText);
         btnRestart.x = 600;
         btnRestart.y = 400;
         this.addChild(btnRestart);
@@ -116,7 +108,7 @@ export class Game extends Node {
                 if (game.firstCard.value === game.secondCard.value) {
                     Animation.increaseSize(game.firstCard);
                     Animation.increaseSize(game.secondCard);
-                    game.score += 100;
+                    game.score += 1000;
                     setTimeout(function () {
                         game.removeCard(game.firstCard);
                         game.removeCard(game.secondCard);
@@ -126,7 +118,7 @@ export class Game extends Node {
                 else {
                     Animation.flipBack(game.firstCard);
                     Animation.flipBack(game.secondCard);
-                    game.score -= 100;
+                    game.score -= 500;
                 }
                 setTimeout(function () {
                     game.countClick = 0;
