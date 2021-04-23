@@ -5,6 +5,7 @@ import { Sprite } from "../lib/Sprite.js";
 import { Card } from "./Card.js";
 export class Game extends Node {
     init() {
+        this.isAnimating = false;
         this.stepWidthCard = 100;
         this.stepHeightCard = 100;
         this.countClick = 0;
@@ -58,21 +59,21 @@ export class Game extends Node {
             listCards.push(index);
         }
         //shuffle
-        for (let i = 0; i < 100; i++) {
-            var index = Math.floor(Math.random() * listCards.length);
-            var temp = listCards[0];
-            listCards[0] = listCards[index];
-            listCards[index] = temp;
-        }
+        // for (let i = 0; i < 100; i++) {
+        //     var index = Math.floor(Math.random() * listCards.length);
+        //     var temp = listCards[0];
+        //     listCards[0] = listCards[index];
+        //     listCards[index] = temp;
+        // }
         //render
         for (let i = 0; i < 20; i++) {
             let card = new Card(20 - i, listCards[i] + "");
-            //card.y = 40 + 101 * Math.floor(i / 5);
+            // card.y = 40 + 101 * Math.floor(i / 5);
             // card.x = 130 + 101 * (i % 5);
             card.y = this.height / 2 - card.height / 2;
             card.x = this.width / 2 - card.width / 2;
             Animation.createCard(card, 0.2);
-            Animation.moveCard(card, 0.2, 0.5, this.stepWidthCard, this.stepHeightCard);
+            Animation.moveCard(card, 0.2, 2, this.stepWidthCard, this.stepHeightCard);
             this.addChild(card);
             card.on("mousedown", this.onClickCard.bind(this));
         }
@@ -108,11 +109,16 @@ export class Game extends Node {
         location.reload();
         //this.init();
     }
+
     onClickCard(evt) {
         let game = this;
         game.countClick++;
+
+
+
         if (game.countClick === 1) {
             game.firstCard = evt.target.node;
+            game.isAnimating = true;
             Animation.flip(game.firstCard, 1);
         } else if (game.countClick === 2) {
             if (game.firstCard === evt.target.node) {
@@ -124,7 +130,8 @@ export class Game extends Node {
                 if (game.firstCard.value === game.secondCard.value) {
                     Animation.increaseSize(game.firstCard);
                     Animation.increaseSize(game.secondCard);
-                    game.score += 1000;
+                    //game.score += 1000;
+                    Animation.changeScore(game, 1000)
                     setTimeout(function () {
                         game.removeCard(game.firstCard);
                         game.removeCard(game.secondCard);
@@ -133,7 +140,8 @@ export class Game extends Node {
                 else {
                     Animation.flipBack(game.firstCard);
                     Animation.flipBack(game.secondCard);
-                    game.score -= 500;
+                    //game.score -= 500;
+                    Animation.changeScore(game, -500)
                 }
                 setTimeout(function () {
                     game.countClick = 0;
@@ -147,6 +155,7 @@ export class Game extends Node {
                 }, 2500)
             }
         }
+
     }
 }
 

@@ -3,12 +3,15 @@ export class Animation {
         card.pointerEvents = false;
         let timeline = gsap.timeline();
         timeline.to(card, { duration: dt * 0.5, scaleX: 0 })
-        timeline.to(card, { duration: dt * 0.5, scaleX: 1 })
-        setTimeout(function () {
+        timeline.call(() => {
             card.children[0].path = "./img/trucxanh" + card.value + ".jpg";
             card.children[1].active = false;
             card.poinerEvents = true;
-        }, dt * 500);
+        })
+        timeline.to(card, {
+            duration: dt * 0.5, scaleX: 1
+        })
+
     }
     static flipBack(card) {
         card.pointerEvents = false;
@@ -17,15 +20,17 @@ export class Animation {
             delay: 1.5, duration: 0.5,
             scaleX: 0
         })
+        timeline.call(() => {
+            card.children[0].path = "./img/cover.jpg";
+            card.children[1].active = true;
+            card.pointerEvents = true;
+        })
         timeline.to(card, {
             duration: 0.5,
             scaleX: 1
         })
-        setTimeout(function () {
-            card.children[0].path = "./img/cover.jpg";
-            card.children[1].active = true;
-            card.pointerEvents = true;
-        }, 2000);
+
+
 
     }
     static increaseSize(card) {
@@ -40,8 +45,22 @@ export class Animation {
         })
         timeline2.to(card.children[0], {
             delay: 1.5, duration: 1,
-            width: 150, height: 150
+            width: 150, height: 150,
+            onComplete: () => {
+
+            }
         })
+
+    }
+
+    static changeScore(game, number) {
+        var Cont = { val: game.score }, NewVal = game.score + number;
+
+        TweenLite.to(Cont, 1, {
+            val: NewVal, roundProps: { val: 50 }, onUpdate: function () {
+                game.score = Cont.val;
+            }
+        });
     }
     static createCard(card, dt) {
         let timeline = gsap.timeline();
@@ -60,29 +79,11 @@ export class Animation {
         }, (card.index + 22) * delay * 1000)
         timeline.to(card, {
             delay: (card.index + 21) * delay, duration: dt,
-            x: 150 + stepWidth * ((card.index - 1) % 5) + 50,
-            y: 40 + stepHeight * Math.floor((card.index - 1) / 5) - 50,
-            width: card.width * 1.2, height: card.height * 1.2
-        });
-        timeline.to(card, {
             x: 150 + stepWidth * ((card.index - 1) % 5),
             y: 40 + stepHeight * Math.floor((card.index - 1) / 5),
-            width: card.width, height: card.height
-        })
-        timeline2.to(card.children[0], {
-            delay: (card.index + 21) * delay, duration: dt,
-            width: card.width * 1.2, height: card.height * 1.2
-        })
-        timeline2.to(card.children[0], {
-            width: card.width, height: card.height
-        })
-        timeline3.to(card.children[1], {
-            delay: (card.index + 21) * delay, duration: dt,
-            x: card.width * 1.2 / 2 - 10, y: card.height * 1.2 / 2 - 10
-        })
-        timeline3.to(card.children[1], {
-            x: card.height / 2 - 10, y: card.width / 2 - 10
-        })
+            ease: "back.out(2)"
+        });
+
         setTimeout(() => {
             card.zIndex = 0;
             card.pointerEvents = true;
