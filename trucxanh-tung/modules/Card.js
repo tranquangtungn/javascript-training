@@ -30,7 +30,7 @@ export class Card extends Node {
         let text = new Label(this._index, style);
         text.elm.node = this;
         this.textIndex = text;
-        text.x = this.height / 2 - 10;
+        text.x = this.height / 2 - 5 * (1 + Math.floor(this.index / 10));
         text.y = this.width / 2 - 10;
         this.addChild(text);
     }

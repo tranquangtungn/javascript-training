@@ -57,6 +57,7 @@ export class Animation {
         var Cont = { val: game.score }, NewVal = game.score + number;
 
         TweenLite.to(Cont, 1, {
+            delay: 1,
             val: NewVal, roundProps: { val: 50 }, onUpdate: function () {
                 game.score = Cont.val;
             }
@@ -81,7 +82,7 @@ export class Animation {
             delay: (card.index + 21) * delay, duration: dt,
             x: 150 + stepWidth * ((card.index - 1) % 5),
             y: 40 + stepHeight * Math.floor((card.index - 1) / 5),
-            ease: "back.out(2)"
+            ease: "back.out(3)"
         });
 
         setTimeout(() => {

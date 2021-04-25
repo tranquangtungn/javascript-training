@@ -52,31 +52,11 @@ export class Game extends Node {
         this.addChild(sc);
     }
     _initCards() {
-        //create
         let listCards = [];
-        for (let index = 0; index < 10; index++) {
-            listCards.push(index);
-            listCards.push(index);
-        }
-        //shuffle
-        // for (let i = 0; i < 100; i++) {
-        //     var index = Math.floor(Math.random() * listCards.length);
-        //     var temp = listCards[0];
-        //     listCards[0] = listCards[index];
-        //     listCards[index] = temp;
-        // }
-        //render
-        for (let i = 0; i < 20; i++) {
-            let card = new Card(20 - i, listCards[i] + "");
-            // card.y = 40 + 101 * Math.floor(i / 5);
-            // card.x = 130 + 101 * (i % 5);
-            card.y = this.height / 2 - card.height / 2;
-            card.x = this.width / 2 - card.width / 2;
-            Animation.createCard(card, 0.2);
-            Animation.moveCard(card, 0.2, 2, this.stepWidthCard, this.stepHeightCard);
-            this.addChild(card);
-            card.on("mousedown", this.onClickCard.bind(this));
-        }
+        this.createListCards(listCards)
+        this.shuffleListCards(listCards)
+        this.renderListCards(listCards)
+
     }
     _initResultGame(text) {
         let result = new Label(text, this.styleText);
@@ -88,6 +68,33 @@ export class Game extends Node {
         btnRestart.y = 400;
         this.addChild(btnRestart);
         btnRestart.on("mousedown", this.onClickReStart.bind(this));
+    }
+    renderListCards(listCards) {
+        for (let i = 0; i < 20; i++) {
+            let card = new Card(20 - i, listCards[i] + "");
+            // card.y = 40 + 101 * Math.floor(i / 5);
+            // card.x = 130 + 101 * (i % 5);
+            card.y = this.height / 2 - card.height / 2;
+            card.x = this.width / 2 - card.width / 2;
+            Animation.createCard(card, 0.15);
+            Animation.moveCard(card, 0.15, 1, this.stepWidthCard, this.stepHeightCard);
+            this.addChild(card);
+            card.on("mousedown", this.onClickCard.bind(this));
+        }
+    }
+    shuffleListCards(listCards) {
+        for (let i = 0; i < 100; i++) {
+            var index = Math.floor(Math.random() * listCards.length);
+            var temp = listCards[0];
+            listCards[0] = listCards[index];
+            listCards[index] = temp;
+        }
+    }
+    createListCards(listCards) {
+        for (let index = 0; index < 10; index++) {
+            listCards.push(index);
+            listCards.push(index);
+        }
     }
     removeAllCards(children) {
         while (children.length !== 2) {
